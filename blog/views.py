@@ -7,15 +7,15 @@ from .models import Post, Category
 
 # Create your views here.
 def home(request):
-    posts = Post.objects.filter(status=Post.ACTIVATE).order_by('-created_at')
+    posts = Post.objects.filter(status=Post.ACTIVE).order_by('-created_at')
     context = {
         'posts': posts
     }
     return render(request, 'blog/home.html', context)
 
-def home(request):
-    posts = Post.objects.filter(status=Post.ACTIVATE).order_by('-created_at')
+def detail(request, id):
+    post = get_object_or_404(Post, id=id, status=Post.ACTIVE)
     context = {
-        'posts': posts
+        'post': post,
     }
-    return render(request, 'blog/home.html', context)
+    return render(request, 'blog/detail.html', context)
