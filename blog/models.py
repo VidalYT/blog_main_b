@@ -13,11 +13,11 @@ class Category(models.Model):
     
 class Post(models.Model):
 
-    ACTIVATE = 'activate'
+    ACTIVE = 'active'
     DRAFT = 'draft'
 
     CHOICES_STATUS = {
-        (ACTIVATE, 'activate'),
+        (ACTIVE, 'active'),
         (DRAFT, 'draft')
     }
 
@@ -26,7 +26,7 @@ class Post(models.Model):
     intro = models.TextField()
     body = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
-    status = models.CharField(max_length=10, choices=CHOICES_STATUS, default=ACTIVATE)
+    status = models.CharField(max_length=10, choices=CHOICES_STATUS, default=ACTIVE)
     image = models.ImageField(upload_to='upload/', blank=True, null=True)
 
     def __str__(self):
