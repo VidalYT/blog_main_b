@@ -1,24 +1,25 @@
 from django.db import models
 
-# Create your models here.
+# New seccion of the code added (To get All URL Generated).
 class Category(models.Model):
     title = models.CharField(max_length=255)
 
     class Meta:
         ordering = ('title',)
         verbose_name_plural = 'Categories'
-
+    
     def __str__(self):
         return self.title
     
+
 class Post(models.Model):
 
     ACTIVE = 'active'
     DRAFT = 'draft'
 
     CHOICES_STATUS = {
-        (ACTIVE, 'active'),
-        (DRAFT, 'draft')
+        (ACTIVE, 'Active'),
+        (DRAFT, 'Draft')
     }
 
     category = models.ForeignKey(Category, related_name='posts', on_delete=models.CASCADE)
@@ -31,9 +32,12 @@ class Post(models.Model):
 
     def __str__(self):
         return self.title
-    
+
+    def get_absolute_url(self):
+        return '/%s/%s/' % (self.category.slug, self.slug)
+
 class Comment(models.Model):
-    post = models.ForeignKey(Post, related_name='posts', on_delete=models.CASCADE)
+    post = models.ForeignKey(Post, related_name='comments', on_delete=models.CASCADE)
     name = models.CharField(max_length=255)
     email = models.EmailField()
     body = models.TextField()

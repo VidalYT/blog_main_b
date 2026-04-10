@@ -1,11 +1,9 @@
-# -*- coding: utf-8 -*-
-
 from django.db.models import Q
 from django.shortcuts import render, get_object_or_404, render
 
 from .models import Post, Category
 
-# Create your views here.
+# The code was ordened for a minor complex code.
 def home(request):
     posts = Post.objects.filter(status=Post.ACTIVE).order_by('-created_at')
     context = {
@@ -15,6 +13,7 @@ def home(request):
 
 def detail(request, id):
     post = get_object_or_404(Post, id=id, status=Post.ACTIVE)
+
     context = {
         'post': post,
     }
